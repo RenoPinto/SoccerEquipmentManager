@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Liste du personnel</h2>
+<ul>
+    {% for membre in personnel %}
+    <li><a href="{% url 'detail_personnel' membre.id %}">{{ membre.nom }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

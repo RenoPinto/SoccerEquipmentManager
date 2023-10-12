@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Modifier une commande
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Modifier une commande</h1>
+
+    <!-- Afficher des messages d'erreur ou de succès si nécessaire -->
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- Ceci affiche le formulaire de modification -->
+
+        <input type="submit" class="btn btn-primary" value="Mettre à jour">
+    </form>
+
+    <div class="mt-3">
+        <a href="{% url 'commandeCLUB:hub_accueil' %}" class="btn btn-secondary">Retour au hub</a>
+
+    </div>
+</div>
+{% endblock %}

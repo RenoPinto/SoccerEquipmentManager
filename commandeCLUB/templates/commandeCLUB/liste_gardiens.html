@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Liste des gardiens</h2>
+<ul>
+    {% for gardien in gardiens %}
+    <li><a href="{% url 'detail_gardien' gardien.id %}">{{ gardien.nom }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

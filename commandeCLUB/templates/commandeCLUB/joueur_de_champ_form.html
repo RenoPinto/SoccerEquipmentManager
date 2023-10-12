@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="breadcrumb">
+    <a href="{% url 'commandeCLUB:hub_accueil' %}">Hub d'accueil</a> > Joueur de champs
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+
+    {% for form in formset %}
+    {% if calibre.has_maillot_local %}
+    <div class="maillot_local_section">
+        <h2>Maillot de match local</h2>
+        {% include 'commandeCLUB/maillot_local_partiel.html' with form=form.maillot_local %}
+    </div>
+    {% endif %}
+
+        {% if calibre.has_maillot_visiteur %}
+    <div id="maillot_visiteur">
+        <h2>Maillot de match visiteur</h2>
+        {% include 'commandeCLUB/maillot_visiteur_partiel.html' with form=form.maillot_visiteur %}
+    </div>
+    {% endif %}
+
+        {% if calibre.has_short_local %}
+        <div class="short_local_section">
+            <h2>Short de match local</h2>
+            {% include 'commandeCLUB/short_local_partiel.html' with form=form.short_local %}
+        </div>
+        {% endif %}
+
+        {% if calibre.has_short_visiteur %}
+        <div class="short_visiteur_section">
+            <h2>Short de match visiteur</h2>
+            {% include 'commandeCLUB/short_visiteur_partiel.html' with form=form.short_visiteur %}
+        </div>
+        {% endif %}
+
+        {% if calibre.has_chaussettes_local %}
+        <div class="chaussettes_local_section">
+            <h2>Chaussettes de match local</h2>
+            {% include 'commandeCLUB/chaussettes_partiel.html' with form=form.chaussettes_local %}
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    <button type="submit">Soumettre</button>
+</form>
+
+<script>
+function addLocalJerseyRow() {
+    let maillotLocalSection = document.querySelector('.maillot_local_section');
+    let lastRow = maillotLocalSection.querySelector('.ligne:last-child');
+    let clone = lastRow.cloneNode(true);
+
+    // Reset the values of the cloned row
+    let inputs = clone.querySelectorAll('input');
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = '';
+    }
+
+    maillotLocalSection.appendChild(clone);
+}
+
+</script>
+
+<a href="{% url 'commandeCLUB:joueur_de_champ_form_num' commande_id=commande.id num_champs=formset.total_form_count|add:'1' %}">Ajouter un autre maillot</a>
+
+{% endblock %}

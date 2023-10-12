@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Hub d'accueil
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Bienvenue, {{ request.user.username }}!</h1>
+    
+    <div class="actions">
+        <a href="{% url 'commandeCLUB:commande' %}" class="btn btn-primary">Placer une nouvelle commande</a>
+        <a href="{% url 'commandeCLUB:modifier_commande' %}" class="btn btn-warning">Modifier une commande existante</a>
+        <!-- Commenter cette ligne si 'historique_commandes' n'est pas encore défini -->
+        <a href="{% url 'commandeCLUB:historique_commandes' %}" class="btn btn-info">Revoir une commande passée</a>
+    </div>
+</div>
+{% endblock %}

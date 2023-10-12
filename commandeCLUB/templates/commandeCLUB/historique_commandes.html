@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Historique des commandes
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Historique des commandes</h1>
+
+    <!-- Exemple de liste des commandes. À adapter selon votre modèle de données -->
+    <ul>
+    {% for commande in commandes %}
+        <li>
+            Commande n°{{ commande.id }} - Date : {{ commande.date }} - Montant : {{ commande.montant }}€
+            <!-- Vous pouvez ajouter plus de détails sur chaque commande ici -->
+        </li>
+    {% empty %}
+        <li>Vous n'avez pas encore passé de commande.</li>
+    {% endfor %}
+    </ul>
+
+    <div class="actions">
+        <a href="{% url 'commandeCLUB:hub_accueil' %}" class="btn btn-primary">Retour au hub</a>
+    </div>
+</div>
+{% endblock %}
